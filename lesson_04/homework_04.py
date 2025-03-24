@@ -56,11 +56,8 @@ print(f"\nTask 05 - Кількість слів, що починаються з 
 """
 
 first_index = adwentures_of_tom_sawer.find("Tom")
-second_index = adwentures_of_tom_sawer.find("Tom", first_index + 1) if first_index != -1 else -1
-if second_index != -1:
-    print(f"\nTask 06 - Друга позиція слова 'Tom': {second_index}")
-else:
-    print("\nTask 06 - 'Tom' зустрічається в тексті менше двох разів.")
+second_index = adwentures_of_tom_sawer.find("Tom", first_index + 1)
+print(f"\nTask 06 - Друга позиція слова 'Tom': {second_index}")
 
 # task 07
 """ Розділіть змінну adwentures_of_tom_sawer по кінцю речення.
