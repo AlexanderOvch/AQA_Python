@@ -51,7 +51,7 @@ def filter_cars(car_data, criteria):
     filtered_cars = []
 
     for car, (color, year, engine_volume, car_type, price) in car_data.items():
-        if year == year_criteria or engine_volume == engine_criteria or price == price_criteria:
+        if year >= year_criteria and engine_volume >= engine_criteria and price <= price_criteria:
             filtered_cars.append((car,(color, year, engine_volume, car_type, price)))
     return filtered_cars
 
