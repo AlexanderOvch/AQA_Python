@@ -36,7 +36,7 @@ for record in people_records:
 # Task 03
 check_ages = all(people_records[i][2] >= 30 for i in [6, 10, 13])
 
-if check_ages == "True":
+if check_ages:
     print(f"\nTask 03:\nВсі люди в списку з індексами 6, 10, 13 мають вік 30 або більше")
 else:print(f"\nTask 03:\nВсі люди в списку з індексами 6, 10, 13 мають вік меньше 30и")
 
