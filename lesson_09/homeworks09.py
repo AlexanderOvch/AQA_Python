@@ -11,6 +11,13 @@ def filter_strings(lst):
     return [item for item in lst if isinstance(item, str)]
 
     """  Функція, яка приймає список слів та повертає найдовше слово у списку."""
+
+
 def find_longest_word(words):
-    if words:
-        return max(words, key=len)
+    if not isinstance(words, list):
+        raise TypeError("Очікується список слів.")
+    if not all(isinstance(word, str) for word in words):
+        raise TypeError("Всі елементи списку повинні бути рядками.")
+
+    # Дальше выполнение основной логики
+    return max(words, key=len)
