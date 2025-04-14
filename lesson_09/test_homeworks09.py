@@ -77,22 +77,28 @@ class TestHomeworks(unittest.TestCase):
         self.assertEqual(result_non_strings, [], f"Очікувалося [], але отримано {result_non_strings}")
         logging.info("Успушно пройшов Тест_10: test_filter_non_strings\n")
 
+    def test_11_filter_strings_no_list(self):
+        logging.info("Тест_11: негативний кейс — передаємо не список")
+        with self.assertRaises(TypeError):
+            filter_strings(123)  # int — не ітерується
+        logging.info("Успушно пройшов Тест_11: filter_strings_no_list\n")
+
     # Тест для функції find_longest_word:
-    def test_11_find_longest_word(self):
-        logging.info("Тест_11: find_longest_word")
+    def test_12_find_longest_word(self):
+        logging.info("Тест_12: find_longest_word")
         result = find_longest_word(["трійка", "вчитель", "гвинтокрил", "мавпа"])
         assert result == "гвинтокрил", f"Очікувалося 'гвинтокрил', але отримано {result}"
-        logging.info("Успушно пройшов Тест_11: find_longest_word\n")
+        logging.info("Успушно пройшов Тест_12: find_longest_word\n")
 
-    def test_12_test_equal_length_words(self):
-        logging.info("Тест_12: test_equal_length_words")
+    def test_13_test_equal_length_words(self):
+        logging.info("Тест_13: test_equal_length_words")
         result = find_longest_word(["кот", "рак", "ліс"])
         logging.debug(f"Результат виконання: {result}")
         assert result == "кот", f"Очікувалося 'кот', але отримано {result}"
-        logging.info("Успушно пройшов Тест_12: test_equal_length_words\n")
+        logging.info("Успушно пройшов Тест_13: test_equal_length_words\n")
 
-    def test_13_invalid_input_type_equal_length_words(self):
-        logging.info("Тест_13: find_longest_word_invalid_type")
+    def test_14_invalid_input_type_equal_length_words(self):
+        logging.info("Тест_14: find_longest_word_invalid_type")
 
         # Перевірка на рядок замість списку
         with self.assertRaises(TypeError):
@@ -105,7 +111,7 @@ class TestHomeworks(unittest.TestCase):
         # Перевірка на список з елементами, які не є рядками
         with self.assertRaises(TypeError):
             find_longest_word(["кот", 5, "ліс"])
-        logging.info("Успішно пройшов Тест_13: find_longest_word_invalid_type\n")
+        logging.info("Успішно пройшов Тест_14: find_longest_word_invalid_type\n")
 
 if __name__ == "__main__":
     unittest.main()
