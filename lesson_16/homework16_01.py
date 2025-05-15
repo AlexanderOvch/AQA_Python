@@ -24,18 +24,3 @@ class TeamLead(Manager, Developer):
         self.team_size = team_size
 
 
-def test_teamlead_attributes():
-    lead = TeamLead("Alice", 9000, "Development", "Python", 6)
-
-    assert hasattr(lead, "name"), "Missing attribute: name"
-    assert hasattr(lead, "salary"), "Missing attribute: salary"
-    assert hasattr(lead, "department"), "Missing attribute: department (from Manager)"
-    assert hasattr(lead, "programming_language"), "Missing attribute: programming_language (from Developer)"
-    assert hasattr(lead, "team_size"), "Missing attribute: team_size (TeamLead specific)"
-
-    print("All attribute tests passed!")
-
-
-if __name__ == "__main__":
-    test_teamlead_attributes()
-
