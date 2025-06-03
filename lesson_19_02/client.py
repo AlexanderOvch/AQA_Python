@@ -1,15 +1,32 @@
 import requests
 
-with open("mars_photo1.jpg", "rb") as img:
-    r_post = requests.post("http://127.0.0.1:8080/upload", files={"image": img})
-data = r_post.json()
-print(f"POST статус: {r_post.status_code} - Завантажено: {data}")
 
-filename = data["image_url"].split("/")[-1]
+BASE_URL = "http://127.0.0.1:8080"
 
-headers = {"Content-Type": "text"}
-r_get = requests.get(f"http://127.0.0.1:8080/image/{filename}", headers=headers)
-print(f"GET статус: {r_get.status_code} - {r_get.json()}")
+def upload_image(file_path: str) -> str:
+    with open(file_path, "rb") as img:
+        response = requests.post(f"{BASE_URL}/upload", files={"image": img})
+    response.raise_for_status()
+    data = response.json()
+    print(f"POST статус: {response.status_code} - Завантажено: {data}")
+    return data["image_url"]
 
-r_del = requests.delete(f"http://127.0.0.1:8080/delete/{filename}")
-print(f"DEL статус: {r_del.status_code} - Видалено:", r_del.json())
+def get_image_info(image_url: str):
+    filename = image_url.split("/")[-1]
+    headers = {"Content-Type": "text"}
+    response = requests.get(f"{BASE_URL}/image/{filename}", headers=headers)
+    response.raise_for_status()
+    print(f"GET статус: {response.status_code} - {response.json()}")
+    return response.json()
+
+def delete_image(image_url: str):
+    filename = image_url.split("/")[-1]
+    response = requests.delete(f"{BASE_URL}/delete/{filename}")
+    response.raise_for_status()
+    print(f"DEL статус: {response.status_code} - Видалено: {response.json()}")
+    return response.json()
+
+if __name__ == "__main__":
+    uploaded_url = upload_image("mars_photo1.jpg")
+    get_image_info(uploaded_url)
+    delete_image(uploaded_url)
