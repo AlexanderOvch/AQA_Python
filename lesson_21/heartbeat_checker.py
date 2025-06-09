@@ -1,6 +1,7 @@
 from datetime import datetime
 import logging
 
+
 def read_filtered_lines(input_file, key):
     filtered = []
     with open(input_file, 'r') as file:
@@ -27,8 +28,7 @@ def log_heartbeat_issues(timestamps, output_file):
         filename=output_file,
         filemode='w',
         level=logging.DEBUG,
-        format='%(asctime)s - %(levelname)s - %(message)s'
-    )
+        format='%(asctime)s - %(levelname)s - %(message)s')
 
     for i in range(len(timestamps) - 1):
         current_time, _ = timestamps[i]
@@ -44,6 +44,8 @@ def analyze_heartbeat_log(input_file, output_file, key='Key TSTFEED0300|7E3E|040
     lines = read_filtered_lines(input_file, key)
     timestamps = extract_timestamps_from_lines(lines)
     log_heartbeat_issues(timestamps, output_file)
+
+
 
 if __name__ == '__main__':
     analyze_heartbeat_log('hblog.txt', 'hb_test.log')
