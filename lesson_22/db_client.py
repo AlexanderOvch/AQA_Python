@@ -1,24 +1,20 @@
 from typing import List, Optional
-from sqlalchemy import create_engine, update, delete
+from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker, joinedload
-from models import Base, Student, Course, student_course
+from models import Student, Course, student_course
 import config
-
 
 class DBClient:
 
     def __init__(self, echo: bool = False):
         self.engine = create_engine(
-            f"postgresql://{config.DB_USER}:{config.DB_PASSWORD}"
-            f"@{config.DB_HOST}:{config.DB_PORT}/{config.DB_NAME}",
+            f"postgresql://{config.DB_USER}:{config.DB_PASSWORD}@{config.DB_HOST}:{config.DB_PORT}/{config.DB_NAME}",
             echo=echo,
-            future=True
+            future=True,
         )
-        Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine, autoflush=False)
 
     def add_course(self, title: str) -> Course:
-        """Создаёт курс, если такого ещё нет, иначе возвращает существующий."""
         with self.Session() as s:
             existing = s.query(Course).filter_by(title=title).first()
             if existing:
@@ -29,12 +25,7 @@ class DBClient:
             s.refresh(course)
             return course
 
-    def add_student(
-        self,
-        name: str,
-        age: int,
-        course_ids: Optional[List[int]] = None
-    ) -> Student:
+    def add_student(self, name: str, age: int, course_ids: Optional[List[int]] = None) -> Student:
         with self.Session() as s:
             student = Student(name=name, age=age)
             if course_ids:
@@ -67,26 +58,13 @@ class DBClient:
 
     def update_student_age(self, student_id: int, new_age: int) -> None:
         with self.Session() as s:
-            s.execute(
-                update(Student)
-                .where(Student.id == student_id)
-                .values(age=new_age)
-            )
+            s.execute(update(Student).where(Student.id == student_id).values(age=new_age))
             s.commit()
 
-    # ---------- DELETE ----------
     def delete_student(self, student_id: int) -> None:
         with self.Session() as s:
             student = s.get(Student, student_id)
             if student:
-                student.courses.clear()   # убираем связи в student_course
+                student.courses.clear()
                 s.delete(student)
-                s.commit()
-
-    def delete_course(self, course_id: int) -> None:
-        with self.Session() as s:
-            course = s.get(Course, course_id)
-            if course:
-                course.students.clear()
-                s.delete(course)
                 s.commit()
