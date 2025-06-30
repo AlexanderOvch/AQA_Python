@@ -1,56 +1,58 @@
 # xPath locators
 
-//a[text()='Home']
-//button[text()='About']
-//button[text()='Contacts']
-//button[text()='Guest log in']
-//button[text()='Sign In']
-//button[text()='Sign up']
-//h1[text()='Do more!']
-//p[text()='With the help of the Hillel auto project, you will have the opportunity to get hands-on experience in manual testing.']
-//img[@alt='Instructions']
-//p[text()='Log fuel expenses']
-//p[text()='Instructions and manuals']
-//p[text()='Keep track of your replacement schedule and plan your vehicle maintenance expenses in advance.']
-//p[text()='Watch over 100 instructions and repair your car yourself.']
-//h2[text()='Contacts']
-//a[@href='https://www.facebook.com/Hillel.IT.School']
-//a[@href='https://t.me/ithillel_kyiv']
-//a[@href='https://www.youtube.com/user/HillelITSchool?sub_confirmation=1']
-//a[@href='https://www.instagram.com/hillel_itschool/']
-//a[@href='https://www.linkedin.com/school/ithillel/']
-//a[@href='https://ithillel.ua']
-//a[contains(@href,'mailto:developer@ithillel.ua')]
-//p[text()='© 2021 Hillel IT school']
-//p[contains(text(),'Hillel auto developed')]
-//a[@routerlink='/' and contains(@class, 'header_logo')]
-//iframe[contains(@class, 'hero-video_frame')]
-
+home_link = "//a[text()='Home']"
+about_button = "//button[text()='About']"
+contacts_button = "//button[text()='Contacts']"
+guest_login_button = "//button[text()='Guest log in']"
+sign_in_button = "//button[text()='Sign In']"
+sign_up_button = "//button[text()='Sign up']"
+do_more_h1 = "//h1[text()='Do more!']"
+hillel_project_paragraph = "//p[text()='With the help of the Hillel auto project, you will have the opportunity to get hands-on experience in manual testing.']"
+instructions_image = "//img[@alt='Instructions']"
+log_fuel_expenses_paragraph = "//p[text()='Log fuel expenses']"
+instructions_and_manuals_paragraph = "//p[text()='Instructions and manuals']"
+replacement_schedule_paragraph = "//p[text()='Keep track of your replacement schedule and plan your vehicle maintenance expenses in advance.']"
+watch_instructions_paragraph = "//p[text()='Watch over 100 instructions and repair your car yourself.']"
+contacts_h2 = "//h2[text()='Contacts']"
+facebook_link = "//a[@href='https://www.facebook.com/Hillel.IT.School']"
+telegram_link = "//a[@href='https://t.me/ithillel_kyiv']"
+youtube_link = "//a[@href='https://www.youtube.com/user/HillelITSchool?sub_confirmation=1']"
+instagram_link = "//a[@href='https://www.instagram.com/hillel_itschool/']"
+linkedin_link = "//a[@href='https://www.linkedin.com/school/ithillel/']"
+ithillel_link = "//a[@href='https://ithillel.ua']"
+mailto_developer_link = "//a[contains(@href,'mailto:developer@ithillel.ua')]"
+copyright_paragraph = "//p[text()='© 2021 Hillel IT school']"
+hillel_auto_dev_paragraph = "//p[contains(text(),'Hillel auto developed')]"
+header_logo_link = "//a[@routerlink='/' and contains(@class, 'header_logo')]"
+hero_video_iframe = "//iframe[contains(@class, 'hero-video_frame')]"
 
 # CSS locators
 
-//app-header/header/div/div/div[@class='header_left']//a[@class='header_logo']
-//nav[@class='header_nav']//a[contains(text(),'Garage')]
-//nav[@class='header_nav']//a[contains(text(),'Fuel expenses')]
-//nav[@class='header_nav']//a[contains(text(),'Instructions') and contains(@class,'-active')]
-//button[@id='userNavDropdown']
-//nav[contains(@class,'user-nav_menu')]//a[contains(text(),'Garage')]
-//nav[contains(@class,'user-nav_menu')]//a[contains(text(),'Fuel expenses')]
-//nav[contains(@class,'user-nav_menu')]//a[contains(text(),'Instructions') and contains(@class,'disabled')]
-//nav[contains(@class,'user-nav_menu')]//button[contains(text(),'Logout')]
-//div[@class='sidebar']//a[contains(text(),'Garage')]
-//div[@class='sidebar']//a[contains(text(),'Fuel expenses')]
-//div[@class='sidebar']//a[contains(text(),'Instructions') and contains(@class,'-active')]
-//div[@class='sidebar']//a[contains(text(),'Log out')]
-//h1[text()='Instructions']
-//div[contains(@class,'instructions-search-controls')]//button[contains(text(),'Audi')]
-//div[contains(@class,'instructions-search-controls')]//button[contains(text(),'TT')]
-//div[contains(@class,'instructions-search-controls')]//button[contains(text(),'Search')]
-//ul[contains(@class,'instructions_list')]//li[1]//a[contains(@class,'instruction-link')]
-//ul[contains(@class,'instructions_list')]//li[1]//a[contains(@class,'instruction-link')]//p[contains(@class,'instruction-link_description')]
-//ul[contains(@class,'instructions_list')]//li[1]//a[contains(@class,'instruction-link')]//a[contains(@class,'instruction-link_download')]
-//svg[@width='36' and @height='48']
-//app-root//app-global-layout//app-header//header[contains(@class,'header')]
-//button[contains(@class,'dropdown-toggle') and contains(text(),'My profile')]
-//div[contains(@class,'dropdown-menu')]//button[contains(text(),'Logout')]
-//app-panel-layout//div[@class='panel-layout']//div[contains(@class,'container')]
+header_logo = 'a.header_logo'
+garage_nav_btn = 'a.header-link[href="/panel/garage"]'
+fuel_expenses_nav_btn = 'a.header-link[href="/panel/expenses"]'
+instructions_nav_btn = 'a.header-link.-active[href="/panel/instructions"]'
+user_nav_toggle_btn = 'button.user-nav_toggle'
+user_nav_garage_link = 'nav.user-nav_menu a.dropdown-item[href="/panel/garage"]'
+user_nav_fuel_expenses_link = 'nav.user-nav_menu a.dropdown-item[href="/panel/expenses"]'
+user_nav_instructions_link = 'nav.user-nav_menu a.dropdown-item.disabled[href="/panel/instructions"]'
+user_nav_logout_btn = 'nav.user-nav_menu button.dropdown-item'
+sidebar_garage_btn = 'a.btn-sidebar[href="/panel/garage"]'
+sidebar_fuel_expenses_btn = 'a.btn-sidebar[href="/panel/expenses"]'
+sidebar_instructions_btn = 'a.btn-sidebar.-active[href="/panel/instructions"]'
+sidebar_logout_btn = 'a.btn-sidebar.text-danger'
+panel_heading_title = 'h1.panel-page_heading'
+brand_dropdown_btn = 'button.brand-select-dropdown_toggle'
+model_dropdown_btn = 'button.model-select-dropdown_toggle'
+search_button = 'button.instructions-search-controls_search'
+instruction_list_items = 'ul.instructions_list li.instruction-list_item a.instruction-link'
+instruction_link_desc = 'p.instruction-link_description'
+instruction_download_link = 'a.instruction-link_download'
+header_inner = 'div.header_inner'
+header_left = 'div.header_left'
+user_nav_dropdown = 'div.user-nav.dropdown'
+dropdown_menu = 'nav.user-nav_menu.dropdown-menu'
+dropdown_toggle = 'button.dropdown-toggle'
+sidebar_wrapper = 'div.sidebar-wrapper'
+panel_layout_container = 'div.panel-layout div.container'
+main_wrapper = 'div.main-wrapper'
