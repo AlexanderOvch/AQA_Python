@@ -1,10 +1,10 @@
-import sys
 import os
+import sys
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -16,6 +16,7 @@ from pages.registration_page import RegistrationPage
 @pytest.fixture
 def driver():
     options = Options()
+    # options.add_argument("--headless")  # якщо хочеш запуск без вікна
     driver = webdriver.Chrome(options=options)
     driver.get("https://guest:welcome2qauto@qauto2.forstudy.space/")
     yield driver

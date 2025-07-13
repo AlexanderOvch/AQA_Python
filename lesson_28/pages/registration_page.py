@@ -1,29 +1,30 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
 
-class RegistrationPage:
-    def __init__(self, driver):
-        self.driver = driver
+class RegistrationPage(BasePage):
+    def fill_name(self, name):
+        self.wait.until(EC.visibility_of_element_located((By.ID, "signupName"))).send_keys(name)
 
-    @property
-    def name_input(self):
-        return self.driver.find_element(By.ID, "signupName")
+    def fill_last_name(self, last_name):
+        self.wait.until(EC.visibility_of_element_located((By.ID, "signupLastName"))).send_keys(last_name)
 
-    @property
-    def last_name_input(self):
-        return self.driver.find_element(By.ID, "signupLastName")
+    def fill_email(self, email):
+        self.wait.until(EC.visibility_of_element_located((By.ID, "signupEmail"))).send_keys(email)
 
-    @property
-    def email_input(self):
-        return self.driver.find_element(By.ID, "signupEmail")
+    def fill_password(self, password):
+        self.wait.until(EC.visibility_of_element_located((By.ID, "signupPassword"))).send_keys(password)
 
-    @property
-    def password_input(self):
-        return self.driver.find_element(By.ID, "signupPassword")
+    def fill_repeat_password(self, password):
+        self.wait.until(EC.visibility_of_element_located((By.ID, "signupRepeatPassword"))).send_keys(password)
 
-    @property
-    def repeat_password_input(self):
-        return self.driver.find_element(By.ID, "signupRepeatPassword")
+    def click_register(self):
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Register']"))).click()
 
-    @property
-    def register_button(self):
-        return self.driver.find_element(By.XPATH, "//button[text()='Register']")
+    def register_user(self, name, last_name, email, password):
+        self.fill_name(name)
+        self.fill_last_name(last_name)
+        self.fill_email(email)
+        self.fill_password(password)
+        self.fill_repeat_password(password)
+        self.click_register()
