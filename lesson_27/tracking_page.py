@@ -1,54 +1,52 @@
-from selenium.webdriver.common.by import By
+# pages/tracking_page.py
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from locators import TrackingLocators as Locators
 
 class TrackingPage:
     URL = "https://tracking.novaposhta.ua/#/uk"
 
-    def __init__(self, driver):
+    def __init__(self, driver, timeout=3):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 5)
+        self.wait = WebDriverWait(driver, timeout)
 
     def open(self):
         self.driver.get(self.URL)
 
-    def enter_tracking_number(self, number: str):
-        input_field = self.wait.until(
-            EC.visibility_of_element_located((By.ID, "en"))
-        )
-        input_field.clear()
-        input_field.send_keys(number)
+    @property
+    def tracking_input(self):
+        return self.wait.until(EC.presence_of_element_located(Locators.TRACKING_INPUT))
 
-        search_button = self.wait.until(
-            EC.element_to_be_clickable((By.ID, "np-number-input-desktop-btn-search-en"))
-        )
-        search_button.click()
+    @property
+    def search_button(self):
+        return self.driver.find_element(*Locators.SEARCH_BUTTON)
 
-    def get_current_status(self) -> str:
+    @property
+    def status_text(self):
+        return self.wait.until(EC.visibility_of_element_located(Locators.STATUS_TEXT))
+
+    @property
+    def bill_title(self):
+        return self.driver.find_element(*Locators.BILL_TITLE)
+
+    def enter_tracking_number(self, ttn):
+        self.tracking_input.clear()
+        self.tracking_input.send_keys(ttn)
+        self.search_button.click()
+
+    def get_current_status(self):
         try:
-            # Пытаемся дождаться блока с реальным статусом
-            status_element = self.wait.until(
-                EC.visibility_of_element_located((By.CSS_SELECTOR, ".header__status-text"))
-            )
-            return status_element.text.strip()
+            return self.status_text.text.strip()
         except TimeoutException:
-            # Если не нашли статус, пробуем найти заголовок накладной
             try:
-                bill_title = self.wait.until(
-                    EC.visibility_of_element_located((By.CSS_SELECTOR, ".tracking__bill-title"))
-                )
-                # Можно вернуть сам текст заголовка или написать "Накладна знайдена"
-                return bill_title.text.strip()
-            except TimeoutException:
-                # Если и заголовка нет, ищем сообщение об ошибке
+                return self.bill_title.text.strip()
+            except NoSuchElementException:
                 try:
-                    error_element = self.wait.until(
-                        EC.visibility_of_element_located(
-                            (By.XPATH, "//span[contains(text(),'Ми не знайшли посилку')]")
-                        )
+                    not_found = self.wait.until(
+                        EC.visibility_of_element_located(Locators.NOT_FOUND_TEXT)
                     )
-                    return error_element.text.strip()
-                except TimeoutException:
-                    # Если ничего не найдено — возвращаем дефолт
+                    return not_found.text.strip()
+                except Exception:
                     return "Статус не знайдено або помилка при отриманні даних"
+
