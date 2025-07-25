@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-                bat '.venv\\Scripts\\python.exe -m pytest tests\\lesson_09\\test_homeworks09.py --junitxml=results.xml'
+                bat '.venv\\Scripts\\python.exe -m pytest lesson_09\\test_homeworks09.py --junitxml=results.xml'
             }
             post {
                 always {
