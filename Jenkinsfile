@@ -7,17 +7,16 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Install dependencies') {
             steps {
-                bat 'python -m pip install --upgrade pip'
-                bat 'python -m pip install -r requirements.txt'
+                bat 'python -m venv .venv'
+                bat '.venv\\Scripts\\python.exe -m pip install --upgrade pip'
+                bat '.venv\\Scripts\\python.exe -m pip install -r requirements.txt'
             }
         }
-
         stage('Run tests') {
             steps {
-                bat '.venv\\Scripts\\activate && pytest tests\\lesson_23\\test_car_api.py --junitxml=results.xml'
+                bat '.venv\\Scripts\\python.exe -m pytest tests\\lesson_09\\test_homeworks09.py --junitxml=results.xml'
             }
             post {
                 always {
@@ -26,7 +25,6 @@ pipeline {
             }
         }
     }
-
     post {
         success {
             echo 'Тести успішно пройшли!'
