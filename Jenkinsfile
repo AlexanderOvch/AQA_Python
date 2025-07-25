@@ -33,10 +33,5 @@ pipeline {
         failure {
             echo 'Тести не пройшли!'
         }
-        always {
-                 mail to: 'featar@gmail.com',
-                 subject: "Результати тестування Jenkins Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Пайплайн завершився з результатом: ${currentBuild.currentResult}\nПодробиці: ${env.BUILD_URL}"
-        }
     }
 }
