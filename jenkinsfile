@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Run tests') {
         steps {
-            bat 'pytest --junitxml=results.xml'
+            bat 'venv\\Scripts\\activate && pytest tests\\lesson_23\\test_car_api.py --junitxml=test-results\\results.xml'
         }
         post {
             always {
