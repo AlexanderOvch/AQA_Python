@@ -27,18 +27,19 @@ pipeline {
     }
 
     post {
-        success {
-            echo 'Тести успішно пройшли!'
-        }
-        failure {
-            echo 'Тести не пройшли!'
-        }
         always {
+            echo 'Тест завершен (успешно или с ошибкой)'
             emailext (
                 to: 'featar@gmail.com',
                 subject: "Build #${BUILD_NUMBER} - ${currentBuild.currentResult}",
                 body: "Build finished with status: ${currentBuild.currentResult}"
             )
+        }
+        success {
+            echo 'Тести успішно пройшли!'
+        }
+        failure {
+            echo 'Тести не пройшли!'
         }
     }
 }
