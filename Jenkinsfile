@@ -33,8 +33,6 @@ pipeline {
         failure {
             echo 'Тести не пройшли!'
         }
-    }
-       post {
         always {
             emailext (
                 to: 'featar@gmail.com',
