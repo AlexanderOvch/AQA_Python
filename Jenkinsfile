@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git url: 'https://github.com/AlexanderOvch/AQA_Python.git', branch: 'main'
             }
         }
         stage('Install dependencies') {
@@ -27,6 +27,14 @@ pipeline {
     }
 
     post {
+        always {
+            echo 'Тест завершенo'
+            emailext (
+                to: 'featar@gmail.com',
+                subject: "Build #${BUILD_NUMBER} - ${currentBuild.currentResult}",
+                body: "Build finished with status: ${currentBuild.currentResult}"
+            )
+        }
         success {
             echo 'Тести успішно пройшли!'
         }
