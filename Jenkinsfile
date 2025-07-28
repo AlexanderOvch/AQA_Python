@@ -28,7 +28,7 @@ pipeline {
 
     post {
         always {
-            echo 'Тест завершен (успешно или с ошибкой)'
+            echo 'Тест завершенo'
             emailext (
                 to: 'featar@gmail.com',
                 subject: "Build #${BUILD_NUMBER} - ${currentBuild.currentResult}",
