@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from pages.base_page import BasePage
+from lesson_28.pages.base_page import BasePage
 
 class RegistrationPage(BasePage):
     def fill_name(self, name):
@@ -28,3 +28,12 @@ class RegistrationPage(BasePage):
         self.fill_password(password)
         self.fill_repeat_password(password)
         self.click_register()
+
+    def is_registration_successful(self):
+        try:
+            self.wait.until(
+                EC.presence_of_element_located((By.XPATH, "//h1[contains(text(), 'Garage')]"))
+            )
+            return True
+        except:
+            return False
